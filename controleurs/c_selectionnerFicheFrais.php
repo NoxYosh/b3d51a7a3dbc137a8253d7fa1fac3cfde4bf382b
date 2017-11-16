@@ -62,6 +62,8 @@ switch ($action) {
             $_SESSION['lePrenom'] = $infosVisiteur['prenom'];
         }
         
+        if (!$_REQUEST['lstVisiteur']=="0"){
+            
         //declaration - initialisation
         $moisASelectionner = $_SESSION['leMois'];
         $visiteurASelectionner = $_SESSION['leVisiteur'];
@@ -86,6 +88,23 @@ switch ($action) {
         $dateModif = dateAnglaisVersFrancais($dateModif);
         $prixKm=intval($pdo->calculerKilometrique($visiteurASelectionner));
         include("vues/comptable/v_ficheFraisComptable.php");
+        }
+        
+        else {
+            //declaration - initialisation
+        $moisASelectionner = $_SESSION['leMois'];
+        $visiteurASelectionner = $_SESSION['leVisiteur'];
+        $nomVisiteur = $_SESSION['leNom'];
+        $prenomVisiteur = $_SESSION['lePrenom'];
+            //affichage selection du mois
+        $lesMois = $pdo->getLesMoisEnAttente();
+        $nbMois=count($lesMois);
+        include("vues/comptable/v_listeMoisComptable.php");
+        
+        //affichage selection du visiteur
+        $lesVisiteurs = $pdo->getLesVisiteursAValider($moisASelectionner);
+        include("vues/comptable/v_listeVisiteur.php");
+        }
         
         break;
     }
@@ -105,6 +124,9 @@ switch ($action) {
         
         //recuperation des variables
         $lstFiche = $_REQUEST['lstFiche'];
+        
+        if (!$lstFiche=='0'){
+        
         //separation de l'id et de la date de la fiche
         $selection = explode('/', $lstFiche);
         $visiteurASelectionner = $selection[0];
@@ -135,6 +157,13 @@ switch ($action) {
         //inclusion de la vue de la fiche a valider le payement
         include ("vues/comptable/v_afficherFichesEnPayement.php");
         
+        }
+        else {
+            //inclusion de la vue de selection
+        $lesFicheEnPayement = $pdo->getInfoFichesEnPayement();
+        $nbFiche = count($lesFicheEnPayement);
+        include("vues/comptable/v_selectionFichesEnPayement.php");
+        }
         break;
     }
 }
