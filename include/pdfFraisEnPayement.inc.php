@@ -81,8 +81,8 @@
             //affichage des lignes du tableau
             $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($libelle),1, 0, 'C');
             $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($quantite), 1, 0, 'C');
-            $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($montant), 1, 0, 'C');
-            $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($total), 1, 1    , 'C');
+            $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($montant." ".utf8_encode(chr(128))), 1, 0, 'C');
+            $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($total." ".utf8_encode(chr(128))), 1, 1    , 'C');
         }
         
         //tableau frais hors forfait
@@ -102,14 +102,14 @@
             //affichage des lignes du tableau
             $pdf->Cell(45, 10, $date, 1, 0, 'C');
             $pdf->Cell(TAILLE_PETIT * 2, 10, utf8_decode($libelle), 1, 0, 'C');
-            $pdf->Cell(TAILLE_PETIT, 10, $montant, 1, 1, 'C');
+            $pdf->Cell(TAILLE_PETIT, 10, utf8_decode($montant." ".utf8_encode(chr(128))), 1, 1, 'C');
         }
         
         //prix total
         $pdf->Ln();
         $pdf->Cell(TAILLE_PETIT * 2, 10, '', 0, 0, 'R');
         $pdf->Cell(45, 10, 'Total '.$numMois.'/'.$numAnnee, 1, 0, 'R');
-        $pdf->Cell(45, 10, $montantTotal, 1, 1, 'R');
+        $pdf->Cell(45, 10, utf8_decode($montantTotal." ".utf8_encode(chr(128))), 1, 1, 'R');
         
         //fait a, le et zone pour la signature
         $pdf->Ln();
